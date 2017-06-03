@@ -2,13 +2,13 @@
 
 $text-color: #ffffff;
 
-
 .auth-main {
   display: flex;
   align-items: center;
   height: 100%;
   width: 100%;
   position: absolute;
+  background-color: $sidebar;
 }
 
 .auth-block {
