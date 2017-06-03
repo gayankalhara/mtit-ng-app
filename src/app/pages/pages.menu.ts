@@ -7,19 +7,19 @@ export const PAGES_MENU = [
         data: {
           menu: {
             title: 'general.menu.dashboard',
-            icon: 'ion-android-home',
+            icon: 'ion-android-color-palette',
             selected: false,
             expanded: false,
-            order: 0
-          }
-        }
+            order: 0,
+          },
+        },
       },
       {
         path: 'invoices',
         data: {
           menu: {
-            title: 'general.menu.form_elements',
-            icon: 'ion-compose',
+            title: 'general.menu.invoices',
+            icon: 'ion-document-text',
             selected: false,
             expanded: false,
             order: 400,
@@ -27,10 +27,10 @@ export const PAGES_MENU = [
         },
         children: [
           {
-            path: 'inputs',
+            path: 'new',
             data: {
               menu: {
-                title: 'general.menu.form_inputs',
+                title: 'general.menu.new_invoice',
               },
             },
           },
@@ -38,7 +38,7 @@ export const PAGES_MENU = [
             path: 'layouts',
             data: {
               menu: {
-                title: 'general.menu.form_layouts',
+                title: 'general.menu.manage',
               },
             },
           },
@@ -48,8 +48,8 @@ export const PAGES_MENU = [
         path: 'payments',
         data: {
           menu: {
-            title: 'general.menu.form_elements',
-            icon: 'ion-compose',
+            title: 'general.menu.payments',
+            icon: 'ion-card',
             selected: false,
             expanded: false,
             order: 400,
@@ -60,7 +60,7 @@ export const PAGES_MENU = [
             path: 'inputs',
             data: {
               menu: {
-                title: 'general.menu.form_inputs',
+                title: 'general.menu.record_payment',
               },
             },
           },
@@ -68,87 +68,53 @@ export const PAGES_MENU = [
             path: 'layouts',
             data: {
               menu: {
-                title: 'general.menu.form_layouts',
+                title: 'general.menu.payment_history',
               },
             },
           },
         ],
       },
       {
-        path: 'forms',
+        path: 'customers',
         data: {
           menu: {
-            title: 'general.menu.form_elements',
-            icon: 'ion-compose',
+            title: 'general.menu.customers',
+            icon: 'ion-ios-people',
             selected: false,
             expanded: false,
             order: 400,
-          }
+          },
         },
         children: [
           {
             path: 'inputs',
             data: {
               menu: {
-                title: 'general.menu.form_inputs',
-              }
-            }
+                title: 'general.menu.add_customer',
+              },
+            },
           },
           {
             path: 'layouts',
             data: {
               menu: {
-                title: 'general.menu.form_layouts',
-              }
-            }
-          }
-        ]
+                title: 'general.menu.manage_customers',
+              },
+            },
+          },
+        ],
       },
       {
-        path: 'tables',
+        path: 'store',
         data: {
           menu: {
-            title: 'general.menu.tables',
-            icon: 'ion-grid',
+            title: 'general.menu.store',
+            icon: 'ion-compose',
             selected: false,
             expanded: false,
-            order: 500,
-          }
+            order: 400,
+          },
         },
-        children: [
-          {
-            path: 'basictables',
-            data: {
-              menu: {
-                title: 'general.menu.basic_tables',
-              }
-            }
-          },
-          {
-            path: 'smarttables',
-            data: {
-              menu: {
-                title: 'general.menu.smart_tables',
-              }
-            }
-          },
-          {
-            path: 'datatables',
-            data: {
-              menu: {
-                title: 'Data Tables',
-              }
-            }
-          },
-           {
-             path: 'hottables',
-             data: {
-               menu: {
-                 title: 'Hot Tables',
-               }
-             }
-           }
-        ]
       },
     ],
   },

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core'
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class BaMsgCenterService {
@@ -15,7 +15,7 @@ export class BaMsgCenterService {
     {
       name: 'default',
       text: 'Test Message',
-      time: '1 min ago'
+      time: '1 min ago',
     },
   ];
 
