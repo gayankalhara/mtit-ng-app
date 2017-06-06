@@ -11,6 +11,8 @@ import { InvoiceComponent } from './invoice.component';
 import { CreateComponent } from './components/create/create.component';
 import { ManageComponent } from './components/manage/manage.component';
 
+import { MyDatePickerModule } from 'mydatepicker';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +21,7 @@ import { ManageComponent } from './components/manage/manage.component';
     NgaModule,
     NgbRatingModule,
     routing,
+    MyDatePickerModule,
   ],
   declarations: [
     InvoiceComponent,

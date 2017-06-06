@@ -1,0 +1,41 @@
+<div class="widgets">
+
+  <div class="row">
+    <div class="col-md-9">
+      <ba-card title="Create Invoice" baCardClass="with-scroll">
+        <div class="row">
+          <div class="col-md-8">
+            <ba-picture-uploader [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="invoiceNumber">Invoice Number</label>
+              <input type="text" class="form-control" name="invoiceNumber" id="invoiceNumber" placeholder="eg. AFR0001">
+            </div>
+
+            <div class="form-group">
+              <label for="invoiceDate">Invoice Date</label>
+              <my-date-picker name="invoiceDate" id="invoiceDate" [options]="myDatePickerOptions"
+                              [(ngModel)]="invoiceDate" required></my-date-picker>
+            </div>
+
+            <div class="form-group">
+              <label for="dueDate">Due Date</label>
+              <my-date-picker name="invoiceDate" id="dueDate" [options]="myDatePickerOptions"
+                              [(ngModel)]="dueDate" required></my-date-picker>
+            </div>
+
+          </div>
+        </div>
+      </ba-card>
+    </div>
+
+    <div class="col-md-3">
+      <ba-card title="Actions" baCardClass="with-scroll">
+        <button type="button" class="btn btn-primary btn-icon"><i class="ion-android-download"></i> Preview</button>
+        <button type="button" class="btn btn-success btn-icon"><i class="ion-android-download"></i> Download PDF</button>
+      </ba-card>
+    </div>
+  </div>
+</div>
