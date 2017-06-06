@@ -15,7 +15,7 @@ export const PAGES_MENU = [
         },
       },
       {
-        path: 'invoices',
+        path: 'invoice',
         data: {
           menu: {
             title: 'general.menu.invoices',
@@ -35,7 +35,7 @@ export const PAGES_MENU = [
             },
           },
           {
-            path: 'layouts',
+            path: 'manage',
             data: {
               menu: {
                 title: 'general.menu.manage',
