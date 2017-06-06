@@ -4,33 +4,28 @@ import {BaThemeConfigProvider, colorHelper} from '../../../theme';
 @Injectable()
 export class PieChartService {
 
-  constructor(private _baConfig:BaThemeConfigProvider) {
+  constructor(private _baConfig: BaThemeConfigProvider) {
   }
 
   getData() {
-    let pieColor = this._baConfig.get().colors.custom.dashboardPieChart;
     return [
       {
-        color: pieColor,
-        description: 'dashboard.new_visits',
-        stats: '57,820',
-        icon: 'person',
+        description: 'dashboard.unpaid',
+        stats: '2',
+        icon: 'ios-paper',
       }, {
-        color: pieColor,
-        description: 'dashboard.purchases',
-        stats: '$ 89,745',
-        icon: 'money',
+        description: 'dashboard.upcoming',
+        stats: '$745.00',
+        icon: 'card',
       }, {
-        color: pieColor,
-        description: 'dashboard.active_users',
-        stats: '178,391',
-        icon: 'face',
+        description: 'dashboard.total_invoices',
+        stats: '17',
+        icon: 'cash',
       }, {
-        color: pieColor,
-        description: 'dashboard.returned',
-        stats: '32,592',
-        icon: 'refresh',
-      }
+        description: 'dashboard.total_payments',
+        stats: '$32,592',
+        icon: 'connection-bars',
+      },
     ];
   }
 }
