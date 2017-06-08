@@ -12,10 +12,6 @@ $hover: 24;
   font-size: 0.9rem;
 }
 
-.btn:hover {
-  transform: scale(1.2);
-}
-
 @mixin styleButton($color, $borderColor) {
   background: $color;
   border-color: $borderColor;
@@ -36,7 +32,7 @@ $hover: 24;
   }
 
   &:hover, &:focus, &.focus, &:active, &.active {
-    @include styleButton($color, $borderColor - $hover);
+    @include styleButton(darken($color, 14), $borderColor - $hover);
   }
 }
 

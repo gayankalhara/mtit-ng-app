@@ -1,0 +1,55 @@
+.flex-center{
+  display: flex;
+  align-items: center;
+}
+
+.table{
+  border-bottom: 1px solid #eceeef;
+}
+
+.table > tbody > tr > td{
+  padding: 0;
+}
+
+.table input[type="text"]{
+  border-radius: 0;
+  border: 1px solid #fff;
+  width: 100%;
+
+  &:focus{
+    box-shadow: 0 0 5px 0 rgba(81, 203, 238, 1);
+    border: 1px solid rgba(81, 203, 238, 1);
+  }
+}
+
+.itemId{
+  width: 10%;
+  border-left: 1px solid #eceeef;
+  border-right: 1px solid #eceeef;
+}
+
+.itemDescription{
+  width: 55%;
+  text-align: center;
+  border-right: 1px solid #eceeef;
+}
+
+.itemAmount{
+  width: 20%;
+  text-align: center;
+  border-right: 1px solid #eceeef
+}
+
+.itemAmount input[type="text"]{
+  text-align: right;
+}
+
+.itemActions{
+  width: 15%;
+  text-align: center;
+  border-right: 1px solid #eceeef;
+}
+
+.add-another button{
+  margin-top: 10px;
+}
