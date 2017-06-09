@@ -18,12 +18,14 @@ export class InvoiceService {
 
     return this.http.post(`${environment.restApiUrl}/invoice/create`, body, options) // ...using post request
       .map((res: Response) => {
-        res.json();
-        const response = JSON.parse(res.text());
-        console.log(`Record Inserted: ${response['_id']}`);
+        if (res.status < 200 || res.status >= 300) {
+          throw new Error(res.status.toString());
+        }
+        return res.json() || {};
       }) // ...and calling .json() on the response to return data
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error')) // ...errors if any
-      .subscribe();
+      .catch((error: any) => {
+        return Observable.throw(error.json().error || 'Server error');
+      }); // ...errors if any
   }
 
 }

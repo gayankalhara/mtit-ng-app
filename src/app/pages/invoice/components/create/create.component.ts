@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import { NgUploaderOptions } from 'ngx-uploader';
 import { IMyDpOptions } from 'mydatepicker';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Invoice } from './invoice.interface';
 import * as _ from 'lodash';
-import {InvoiceService} from "app/services/invoice.service";
+import { InvoiceService } from '../../../../services/invoice.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+
 
 @Component({
   selector: 'create',
@@ -39,7 +41,11 @@ export class CreateComponent implements OnInit {
   public total: number;
   public discountType: string;
 
-  constructor(private _fb: FormBuilder, private invoiceService: InvoiceService) {
+  constructor(private _fb: FormBuilder,
+              private invoiceService: InvoiceService,
+              public toastr: ToastsManager,
+              vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -108,6 +114,11 @@ export class CreateComponent implements OnInit {
       'total' : this.total,
     };
 
-    this.invoiceService.saveInvoice(data);
+    this.invoiceService.saveInvoice(data).subscribe(res => {
+      this.toastr.success('Invoice Saved!', 'Success!');
+    }, err => {
+      this.toastr.error('Something went wrong!', 'Oops!');
+    });
+
   }
 }

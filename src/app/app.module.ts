@@ -16,12 +16,15 @@ import { AppState, InternalStateType } from './app.service';
 import { GlobalState } from './global.state';
 import { NgaModule } from './theme/nga.module';
 import { PagesModule } from './pages/pages.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastModule, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { CustomOption } from './theme/toastr.options';
 
 
 // Application wide providers
 const APP_PROVIDERS = [
   AppState,
-  GlobalState
+  GlobalState,
 ];
 
 export type StoreType = {
@@ -48,9 +51,12 @@ export type StoreType = {
     NgbModule.forRoot(),
     PagesModule,
     routing,
+    BrowserAnimationsModule,
+    ToastModule.forRoot(),
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     APP_PROVIDERS,
+    { provide: ToastOptions, useClass: CustomOption },
   ],
 })
 
