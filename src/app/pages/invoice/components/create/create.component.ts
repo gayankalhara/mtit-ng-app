@@ -3,6 +3,8 @@ import { NgUploaderOptions } from 'ngx-uploader';
 import { IMyDpOptions } from 'mydatepicker';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Invoice } from './invoice.interface';
+import * as _ from 'lodash';
+import {InvoiceService} from "app/services/invoice.service";
 
 @Component({
   selector: 'create',
@@ -15,37 +17,46 @@ export class CreateComponent implements OnInit {
   public myForm: FormGroup;
 
   // Company Logo Picker
-  private defaultPicture = 'assets/img/dummy-logo.jpg';
+  public defaultPicture = 'assets/img/dummy-logo.jpg';
 
-  private profile:any = {
+  public profile: any = {
     picture: '',
   };
+
   public uploaderOptions: NgUploaderOptions = {
     // ur;l: 'http://website.com/upload'
     url: '',
   };
 
-  // Invoice Date Selector
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
     dateFormat: 'dd/mm/yyyy',
   };
 
-  public invoiceDate: Object = { date: { year: 2018, month: 10, day: 9 } };
-  public dueDate: Object = { date: { year: 2018, month: 10, day: 9 } };
+  public subTotal: number;
+  public discount: number;
+  public discountCalculated: number;
+  public total: number;
+  public discountType: string;
 
-  constructor(private _fb: FormBuilder) {
+  constructor(private _fb: FormBuilder, private invoiceService: InvoiceService) {
   }
 
   ngOnInit() {
+    const date = new Date();
+    const dueDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 7);
+
     this.myForm = this._fb.group({
       invoiceNumber: ['', [Validators.required, Validators.minLength(5)]],
-      invoiceDate: ['', [Validators.required]],
-      dueDate: ['', [Validators.required]],
+      invoiceDate: [{ jsdate: date }, [Validators.required]],
+      dueDate: [{ jsdate: dueDate }, [Validators.required]],
       items: this._fb.array([
         this.initAddress(),
       ]),
     });
+
+    this.subTotal = 0;
+    this.discountType = '%';
   }
 
   initAddress() {
@@ -65,7 +76,38 @@ export class CreateComponent implements OnInit {
     control.removeAt(i);
   }
 
+  onAmountChange() {
+    const control = <FormArray>this.myForm.controls['items'];
+    const result = _.chain(control.value).map('amount').sum().value();
+    let discount = this.discount;
+    if (isNaN(discount)) {
+      discount = 0;
+    }
+    this.subTotal = result;
+
+    if (this.discountType === '%') {
+      this.discountCalculated = result * (discount / 100) * (-1);
+    } else {
+      this.discountCalculated = discount * (-1);
+    }
+
+    this.total = result + this.discountCalculated;
+  }
+
   save(model: Invoice) {
-    console.log(model);
+    const data = {
+      'createdAt': new Date(),
+      'updatedAt': new Date(),
+      'invoiceNumber': model.invoiceNumber,
+      'invoiceDate' : new Date(model.invoiceDate.jsdate),
+      'dueDate' : new Date(model.dueDate.jsdate),
+      'items' : model.items,
+      'discountType' : this.discountType,
+      'discount' : this.discount,
+      'subTotal' : this.subTotal,
+      'total' : this.total,
+    };
+
+    this.invoiceService.saveInvoice(data);
   }
 }

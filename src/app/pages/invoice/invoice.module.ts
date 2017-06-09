@@ -12,6 +12,7 @@ import { CreateComponent } from './components/create/create.component';
 import { ManageComponent } from './components/manage/manage.component';
 
 import { MyDatePickerModule } from 'mydatepicker';
+import {InvoiceService} from '../../services/invoice.service';
 
 @NgModule({
   imports: [
@@ -28,6 +29,9 @@ import { MyDatePickerModule } from 'mydatepicker';
     InvoiceComponent,
     CreateComponent,
     ManageComponent,
+  ],
+  providers: [
+    InvoiceService,
   ],
 })
 export class InvoiceModule {

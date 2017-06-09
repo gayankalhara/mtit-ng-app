@@ -1,7 +1,9 @@
+import { IMyDateModel } from 'mydatepicker';
+
 export interface Invoice {
   invoiceNumber: string;
-  invoiceDate: string;
-  dueDate: string;
+  invoiceDate: IMyDateModel;
+  dueDate: IMyDateModel;
   items: Items[];
 }
 

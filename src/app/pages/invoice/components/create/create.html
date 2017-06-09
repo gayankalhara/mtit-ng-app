@@ -32,7 +32,7 @@
                   </div>
 
                   <div class="col-md-8">
-                    <my-date-picker name="invoiceDate" id="invoiceDate" formControlName="invoiceDate" [options]="myDatePickerOptions"
+                    <my-date-picker id="invoiceDate" formControlName="invoiceDate" [options]="myDatePickerOptions"
                                      required></my-date-picker>
                   </div>
                 </div>
@@ -45,7 +45,7 @@
                   </div>
 
                   <div class="col-md-8">
-                    <my-date-picker name="dueDate" formControlName="dueDate" id="dueDate" [options]="myDatePickerOptions"
+                    <my-date-picker formControlName="dueDate" id="dueDate" [options]="myDatePickerOptions"
                                      required></my-date-picker>
                   </div>
                 </div>
@@ -57,7 +57,7 @@
 
           <div class="row">
             <div class="col-md-12">
-              <table class="table">
+              <table class="table invoice">
                 <thead>
                   <tr>
                     <th class="itemId">Item Id</th>
@@ -67,10 +67,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr formArrayName="items" *ngFor="let address of myForm.controls.items.controls; let i=index">
+                  <tr formArrayName="items" *ngFor="let item of myForm.controls.items.controls; let i=index">
                     <td class="itemId">{{i + 1}}</td>
-                    <td class="itemDescription" [formGroupName]="i"><input type="text" class="form-control" formControlName="description"></td>
-                    <td class="itemAmount" [formGroupName]="i"><input type="text" class="form-control" formControlName="amount" placeholder="0.00"></td>
+                    <td class="itemDescription" [formGroupName]="i">
+                      <input type="text" class="form-control" formControlName="description">
+                    </td>
+                    <td class="itemAmount" [formGroupName]="i">
+                      <input type="number"
+                             onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)"
+                             (keyup)="onAmountChange()"
+                             (change)="onAmountChange()"
+                             class="form-control" formControlName="amount" placeholder="0.00">
+                    </td>
                     <td class="itemActions"><button *ngIf="myForm.controls.items.controls.length > 1"
                                 (click)="removeItem(i)"
                                 class="btn btn-default btn-icon"
@@ -79,24 +87,52 @@
                 </tbody>
               </table>
 
-
+              <table class="table total-section">
+                <tbody>
+                  <tr>
+                    <th colspan="3">Subtotal</th>
+                    <td>{{ subTotal | currency:'USD':true:'1.2-2' }}</td>
+                  </tr>
+                  <tr>
+                    <th><label for="discount">Discount</label></th>
+                    <td><input id="discount"
+                               type="number"
+                               placeholder="0.00"
+                               min="0"
+                               [(ngModel)]="discount"
+                               [ngModelOptions]="{standalone: true}"
+                               onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)"
+                               (change)="onAmountChange()"
+                               (keyup)="onAmountChange()"/></td>
+                    <td>
+                      <select
+                        id="discountType"
+                        [(ngModel)]="discountType"
+                        [ngModelOptions]="{standalone: true}"
+                        (change)="onAmountChange()">
+                        <option>%</option>
+                        <option>$</option>
+                      </select>
+                    </td>
+                    <td>{{ discountCalculated | currency:'USD':true:'1.2-2' }}</td>
+                  </tr>
+                  <tr class="total">
+                    <th colspan="3">Total</th>
+                    <td>{{ total | currency:'USD':true:'1.2-2' }}</td>
+                  </tr>
+                </tbody>
+              </table>
 
                 <div class="add-another">
                   <button (click)="addItem()" class="btn btn-default btn-with-icon" type="button"><i class="ion-plus"></i>Add another item</button>
                 </div>
 
                 <div class="margin-20">
-                  <button type="submit" class="btn btn-primary pull-right" [disabled]="!myForm.valid">Submit</button>
+                  <button type="submit" class="btn btn-primary pull-right btn-submit" [disabled]="!myForm.valid">Save</button>
                 </div>
                 <div class="clearfix"></div>
 
-                <div class="margin-20">
-                  <div>Invoice JSON:</div>
-                  <pre>Is valid?: <br>{{myForm.valid | json}}</pre>
-                  <pre>Invoice Data: <br>{{myForm.value | json}}</pre>
-                </div>
-
-            </div>
+             </div>
           </div>
           </form>
       </ba-card>

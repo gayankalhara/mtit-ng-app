@@ -3,15 +3,16 @@
   align-items: center;
 }
 
-.table{
+.invoice{
   border-bottom: 1px solid #eceeef;
 }
 
-.table > tbody > tr > td{
+.invoice > tbody > tr > td{
   padding: 0;
 }
 
-.table input[type="text"]{
+.invoice input[type="text"],
+.invoice input[type="number"]{
   border-radius: 0;
   border: 1px solid #fff;
   width: 100%;
@@ -40,7 +41,8 @@
   border-right: 1px solid #eceeef
 }
 
-.itemAmount input[type="text"]{
+.itemAmount input[type="text"],
+.itemAmount input[type="number"]{
   text-align: right;
 }
 
@@ -52,4 +54,45 @@
 
 .add-another button{
   margin-top: 10px;
+}
+
+.total-section{
+  width: 30%;
+  float: right;
+}
+
+.btn-submit{
+  clear: both;
+  display: block;
+  margin-top: 20px;
+}
+
+table.table.total-section {
+  margin-top: 10px;
+}
+
+.total-section th, .total-section td{
+  text-align: right;
+}
+
+.total th, .total td{
+  font-weight: 800;
+}
+
+#discount{
+  border: none;
+  width: 75px;
+  text-align: right;
+}
+
+#discountType{
+  height: 37px;
+  width: 65px;
+  padding: 5px 8px;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+  text-align: center;
 }
