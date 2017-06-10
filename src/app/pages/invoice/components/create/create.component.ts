@@ -112,6 +112,7 @@ export class CreateComponent implements OnInit {
       'discount' : this.discount,
       'subTotal' : this.subTotal,
       'total' : this.total,
+      'status' : 'draft',
     };
 
     this.invoiceService.saveInvoice(data).subscribe(res => {
