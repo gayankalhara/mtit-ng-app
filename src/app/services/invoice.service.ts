@@ -16,7 +16,7 @@ export class InvoiceService {
     const headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
     const options = new RequestOptions(headers); // Create a request option
 
-    return this.http.post(`${environment.restApiUrl}/invoice/create`, body, options) // ...using post request
+    return this.http.put(`${environment.restApiUrl}/invoice/create`, body, options) // ...using post request
       .map((res: Response) => {
         if (res.status < 200 || res.status >= 300) {
           throw new Error(res.status.toString());
