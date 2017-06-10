@@ -6,7 +6,7 @@ import { Invoice } from './invoice.interface';
 import * as _ from 'lodash';
 import { InvoiceService } from '../../../../services/invoice.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'create',
@@ -44,7 +44,8 @@ export class CreateComponent implements OnInit {
   constructor(private _fb: FormBuilder,
               private invoiceService: InvoiceService,
               public toastr: ToastsManager,
-              vcr: ViewContainerRef) {
+              vcr: ViewContainerRef,
+              private route: ActivatedRoute) {
     this.toastr.setRootViewContainerRef(vcr);
   }
 
@@ -63,6 +64,34 @@ export class CreateComponent implements OnInit {
 
     this.subTotal = 0;
     this.discountType = '%';
+
+    const invoiceNumber = this.route.snapshot.paramMap.get('id');
+
+    if (invoiceNumber) {
+      this.invoiceService.getInvoice(invoiceNumber).subscribe(res => {
+        this.myForm.patchValue({
+          invoiceNumber: res.invoiceNumber,
+          invoiceDate: res.invoiceDate,
+          dueDate: res.dueDate,
+        });
+
+        this.subTotal = res.subTotal;
+        this.total = res.total;
+        this.discountType = res.discountType;
+
+        const control = <FormArray>this.myForm.controls['items'];
+        const items = res.items;
+        const formBuilder = this._fb;
+
+        control.removeAt(0);
+
+        items.forEach(function (value) {
+          control.push(formBuilder.group(value));
+        });
+      }, err => {
+        this.toastr.error('Invoice Not Available', 'Oops!');
+      });
+    }
   }
 
   initAddress() {

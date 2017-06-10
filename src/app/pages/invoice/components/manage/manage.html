@@ -41,7 +41,19 @@
       </ngx-datatable-column>
       <ngx-datatable-column name="Actions" [flexGrow]="1">
         <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-          <button #del (click)="delete(del.getAttribute('data-invoice-number'))" [attr.data-invoice-number]="row['invoiceNumber']" class="btn btn-danger btn-icon" type="button"><i class="ion-trash-b"></i></button>
+          <button #edt (click)="edit(edt.getAttribute('data-invoice-number'))"
+                  [attr.data-invoice-number]="row['invoiceNumber']"
+                  class="btn btn-primary btn-icon"
+                  type="button">
+            <i class="ion-edit"></i>
+          </button>
+
+          <button #del (click)="delete(del.getAttribute('data-invoice-number'))"
+                  [attr.data-invoice-number]="row['invoiceNumber']"
+                  class="btn btn-danger btn-icon"
+                  type="button">
+            <i class="ion-trash-b"></i>
+          </button>
         </ng-template>
       </ngx-datatable-column>
     </ngx-datatable>

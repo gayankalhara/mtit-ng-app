@@ -1,6 +1,7 @@
-import {Component, ViewContainerRef} from '@angular/core';
-import {InvoiceService} from '../../../../services/invoice.service';
-import {ToastsManager} from 'ng2-toastr';
+import { Component, ViewContainerRef } from '@angular/core';
+import { InvoiceService } from '../../../../services/invoice.service';
+import { ToastsManager } from 'ng2-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'manage',
@@ -13,7 +14,8 @@ export class ManageComponent {
 
   constructor(private invoiceService: InvoiceService,
               public toastr: ToastsManager,
-              vcr: ViewContainerRef) {
+              vcr: ViewContainerRef,
+              private router: Router) {
 
     this.fetchInvoices();
     this.toastr.setRootViewContainerRef(vcr);
@@ -34,8 +36,12 @@ export class ManageComponent {
     this.selected.push(...selected);
   }
 
+  edit(invoiceNumber: string) {
+    this.router.navigate(['/pages/invoice/edit', invoiceNumber]);
+  }
+
   delete(invoiceNumber: string) {
-    this.invoiceService.delete(invoiceNumber).subscribe(res =>{
+    this.invoiceService.delete(invoiceNumber).subscribe(res => {
         this.toastr.success('Successfully Deleted the Invoice...', 'Success!');
         this.fetchInvoices();
     },

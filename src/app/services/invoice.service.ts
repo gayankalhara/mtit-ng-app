@@ -13,19 +13,19 @@ export class InvoiceService {
   constructor(private http: Http) { }
 
   saveInvoice(body: Object) {
-    const headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
-    const options = new RequestOptions(headers); // Create a request option
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions(headers);
 
-    return this.http.put(`${environment.restApiUrl}/invoice/create`, body, options) // ...using post request
+    return this.http.put(`${environment.restApiUrl}/invoice/create`, body, options)
       .map((res: Response) => {
         if (res.status < 200 || res.status >= 300) {
           throw new Error(res.status.toString());
         }
         return res.json() || {};
-      }) // ...and calling .json() on the response to return data
+      })
       .catch((error: any) => {
         return Observable.throw(error.json().error || 'Server error');
-      }); // ...errors if any
+      });
   }
 
   fetchAll() {
@@ -35,14 +35,43 @@ export class InvoiceService {
           throw new Error(res.status.toString());
         }
         return res.json() || {};
-      }) // ...and calling .json() on the response to return data
+      })
       .catch((error: any) => {
         return Observable.throw(error.json().error || 'Server error');
-      }); // ...errors if any
+      });
   }
 
   delete(invoiceNumber: String) {
     return this.http.delete(`${environment.restApiUrl}/invoice/delete/${invoiceNumber}`, {})
+      .map((res: Response) => {
+        if (res.status < 200 || res.status >= 300) {
+          throw new Error(res.status.toString());
+        }
+        return res.json() || {};
+      })
+      .catch((error: any) => {
+        return Observable.throw(error.json().error || 'Server error');
+      });
+  }
+
+  getInvoice(invoiceNumber: String) {
+    return this.http.get(`${environment.restApiUrl}/invoice/${invoiceNumber}`, {})
+      .map((res: Response) => {
+        if (res.status < 200 || res.status >= 300) {
+          throw new Error(res.status.toString());
+        }
+        return res.json() || {};
+      })
+      .catch((error: any) => {
+        return Observable.throw(error.json().error || 'Server error');
+      });
+  }
+
+  editInvoice(body: Object) {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions(headers);
+
+    return this.http.post(`${environment.restApiUrl}/invoice/create`, body, options)
       .map((res: Response) => {
         if (res.status < 200 || res.status >= 300) {
           throw new Error(res.status.toString());

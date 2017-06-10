@@ -11,6 +11,7 @@ const routes: Routes = [
     component: InvoiceComponent,
     children: [
       { path: 'new', component: CreateComponent },
+      { path: 'edit/:id', component: CreateComponent },
       { path: 'manage', component: ManageComponent },
     ],
   },
