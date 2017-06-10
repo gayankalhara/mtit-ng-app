@@ -11,19 +11,19 @@ export class PieChartService {
     return [
       {
         description: 'dashboard.unpaid',
-        stats: '2',
+        stats: '0',
         icon: 'ios-paper',
       }, {
         description: 'dashboard.upcoming',
-        stats: '$745.00',
+        stats: '$0.00',
         icon: 'card',
       }, {
         description: 'dashboard.total_invoices',
-        stats: '17',
+        stats: '0',
         icon: 'cash',
       }, {
         description: 'dashboard.total_payments',
-        stats: '$32,592',
+        stats: '$0',
         icon: 'connection-bars',
       },
     ];
