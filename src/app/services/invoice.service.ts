@@ -28,4 +28,30 @@ export class InvoiceService {
       }); // ...errors if any
   }
 
+  fetchAll() {
+    return this.http.get(`${environment.restApiUrl}/invoice/fetch`, {})
+      .map((res: Response) => {
+        if (res.status < 200 || res.status >= 300) {
+          throw new Error(res.status.toString());
+        }
+        return res.json() || {};
+      }) // ...and calling .json() on the response to return data
+      .catch((error: any) => {
+        return Observable.throw(error.json().error || 'Server error');
+      }); // ...errors if any
+  }
+
+  delete(invoiceNumber: String) {
+    return this.http.delete(`${environment.restApiUrl}/invoice/delete/${invoiceNumber}`, {})
+      .map((res: Response) => {
+        if (res.status < 200 || res.status >= 300) {
+          throw new Error(res.status.toString());
+        }
+        return res.json() || {};
+      })
+      .catch((error: any) => {
+        return Observable.throw(error.json().error || 'Server error');
+      });
+  }
+
 }

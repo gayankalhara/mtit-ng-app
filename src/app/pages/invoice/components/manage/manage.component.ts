@@ -1,11 +1,46 @@
-import {Component} from '@angular/core';
+import {Component, ViewContainerRef} from '@angular/core';
+import {InvoiceService} from '../../../../services/invoice.service';
+import {ToastsManager} from 'ng2-toastr';
 
 @Component({
   selector: 'manage',
   templateUrl: './manage.html',
+  styleUrls: ['./manage.scss'],
 })
 export class ManageComponent {
+  rows = [];
+  selected = [];
 
-  constructor() {
+  constructor(private invoiceService: InvoiceService,
+              public toastr: ToastsManager,
+              vcr: ViewContainerRef) {
+
+    this.fetchInvoices();
+    this.toastr.setRootViewContainerRef(vcr);
+  }
+
+  fetchInvoices() {
+    this.invoiceService.fetchAll().subscribe(res => {
+      this.rows = res;
+    }, err => {
+      this.toastr.error('Something went wrong while fetching the invoices!', 'Oops!');
+    });
+  }
+
+  onSelect({ selected }) {
+    console.log('Select Event', selected, this.selected);
+
+    this.selected.splice(0, this.selected.length);
+    this.selected.push(...selected);
+  }
+
+  delete(invoiceNumber: string) {
+    this.invoiceService.delete(invoiceNumber).subscribe(res =>{
+        this.toastr.success('Successfully Deleted the Invoice...', 'Success!');
+        this.fetchInvoices();
+    },
+    err => {
+      this.toastr.error('Something went wrong while deleting the invoice...', 'Oops!');
+    });
   }
 }

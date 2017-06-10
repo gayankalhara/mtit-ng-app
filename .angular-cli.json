@@ -30,6 +30,7 @@
         "../node_modules/handsontable/dist/handsontable.full.css",
         "../node_modules/ng2-slim-loading-bar/style.css",
         "../node_modules/ng2-toastr/bundles/ng2-toastr.min.css",
+        "../node_modules/@swimlane/ngx-datatable/src/themes/material.scss",
         "app/theme/theme.scss",
         "styles.scss"
       ],

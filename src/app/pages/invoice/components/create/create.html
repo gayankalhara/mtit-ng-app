@@ -91,7 +91,7 @@
                 <tbody>
                   <tr>
                     <th colspan="3">Subtotal</th>
-                    <td>{{ subTotal | currency:'USD':true:'1.2-2' }}</td>
+                    <td>{{(subTotal == '') ? '$0.00' : (subTotal | currency:'USD':true:'1.2-2')}}</td>
                   </tr>
                   <tr>
                     <th><label for="discount">Discount</label></th>
@@ -114,11 +114,11 @@
                         <option>$</option>
                       </select>
                     </td>
-                    <td>{{ discountCalculated | currency:'USD':true:'1.2-2' }}</td>
+                    <td>{{(discountCalculated == '') ? '$0.00' : (discountCalculated | currency:'USD':true:'1.2-2')}}</td>
                   </tr>
                   <tr class="total">
                     <th colspan="3">Total</th>
-                    <td>{{ total | currency:'USD':true:'1.2-2' }}</td>
+                    <td>{{(total == '') ? '$0.00' : (total | currency:'USD':true:'1.2-2')}}</td>
                   </tr>
                 </tbody>
               </table>

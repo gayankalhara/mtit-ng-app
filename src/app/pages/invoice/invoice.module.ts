@@ -12,7 +12,8 @@ import { CreateComponent } from './components/create/create.component';
 import { ManageComponent } from './components/manage/manage.component';
 
 import { MyDatePickerModule } from 'mydatepicker';
-import {InvoiceService} from '../../services/invoice.service';
+import { InvoiceService } from '../../services/invoice.service';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import {InvoiceService} from '../../services/invoice.service';
     routing,
     MyDatePickerModule,
     ReactiveFormsModule,
+    NgxDatatableModule,
   ],
   declarations: [
     InvoiceComponent,

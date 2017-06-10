@@ -1,0 +1,18 @@
+/deep/ .ngx-datatable .datatable-body-cell,
+/deep/ .ngx-datatable .datatable-header-cell{
+  margin: auto;
+}
+
+/deep/ datatable-header-cell.datatable-header-cell{
+  padding-top: 15px !important;
+}
+
+/deep/ .datatable-checkbox{
+  padding: 0;
+}
+
+.amount{
+  width: 100%;
+  display: block;
+  text-align: right;
+}
