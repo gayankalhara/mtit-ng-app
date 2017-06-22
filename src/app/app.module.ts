@@ -19,6 +19,10 @@ import { PagesModule } from './pages/pages.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastModule, ToastOptions } from 'ng2-toastr/ng2-toastr';
 import { CustomOption } from './theme/toastr.options';
+import {AuthService} from './services/auth.service';
+import {AuthGuardLogin} from './services/auth-guard-login.service';
+import {AuthGuardAdmin} from './services/auth-guard-admin.service';
+import {UserService} from './services/user.service';
 
 
 // Application wide providers
@@ -57,6 +61,10 @@ export type StoreType = {
   providers: [ // expose our Services and Providers into Angular's dependency injection
     APP_PROVIDERS,
     { provide: ToastOptions, useClass: CustomOption },
+    AuthService,
+    AuthGuardLogin,
+    AuthGuardAdmin,
+    UserService,
   ],
 })
 

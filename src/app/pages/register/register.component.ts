@@ -1,32 +1,41 @@
-import {Component} from '@angular/core';
-import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
-import {EmailValidator, EqualPasswordsValidator} from '../../theme/validators';
+import { Component, ViewContainerRef } from '@angular/core';
+import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { EmailValidator, EqualPasswordsValidator } from '../../theme/validators';
+import { ToastsManager } from 'ng2-toastr';
+import { UserService } from '../../services/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'register',
   templateUrl: './register.html',
-  styleUrls: ['./register.scss']
+  styleUrls: ['./register.scss'],
 })
 export class Register {
 
-  public form:FormGroup;
-  public name:AbstractControl;
-  public email:AbstractControl;
-  public password:AbstractControl;
-  public repeatPassword:AbstractControl;
-  public passwords:FormGroup;
+  public form: FormGroup;
+  public name: AbstractControl;
+  public email: AbstractControl;
+  public password: AbstractControl;
+  public repeatPassword: AbstractControl;
+  public passwords: FormGroup;
 
-  public submitted:boolean = false;
+  public submitted: boolean = false;
 
-  constructor(fb:FormBuilder) {
+  constructor(private userService: UserService,
+              public toastr: ToastsManager,
+              vcr: ViewContainerRef,
+              private router: Router,
+              fb: FormBuilder) {
+
+    this.toastr.setRootViewContainerRef(vcr);
 
     this.form = fb.group({
       'name': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'email': ['', Validators.compose([Validators.required, EmailValidator.validate])],
       'passwords': fb.group({
         'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-        'repeatPassword': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
-      }, {validator: EqualPasswordsValidator.validate('password', 'repeatPassword')})
+        'repeatPassword': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      }, { validator: EqualPasswordsValidator.validate('password', 'repeatPassword') }),
     });
 
     this.name = this.form.controls['name'];
@@ -36,11 +45,19 @@ export class Register {
     this.repeatPassword = this.passwords.controls['repeatPassword'];
   }
 
-  public onSubmit(values:Object):void {
-    this.submitted = true;
-    if (this.form.valid) {
-      // your code goes here
-      // console.log(values);
-    }
+  register() {
+    const user = {
+      'name': this.name.value,
+      'email': this.email.value,
+      'password': this.password.value,
+    };
+
+    this.userService.register(user).subscribe(
+      res => {
+        this.toastr.success('You have successfully registered!', 'Welcome!');
+        this.router.navigate(['/login']);
+      },
+      error => this.toastr.error('Email Already Exists!', 'Error!'),
+    );
   }
 }
