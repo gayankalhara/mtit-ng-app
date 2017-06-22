@@ -1,13 +1,13 @@
 import { Routes, RouterModule } from '@angular/router';
 
-import { Login } from './login.component';
 import { ModuleWithProviders } from '@angular/core';
+import { LogoutComponent } from './logout.component';
 
 // noinspection TypeScriptValidateTypes
 export const routes: Routes = [
   {
     path: '',
-    component: Login,
+    component: LogoutComponent,
   },
 ];
 

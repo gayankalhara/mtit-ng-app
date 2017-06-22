@@ -2,6 +2,7 @@ import { Routes, RouterModule }  from '@angular/router';
 import { Pages } from './pages.component';
 import { ModuleWithProviders } from '@angular/core';
 import {AuthGuardLogin} from '../services/auth-guard-login.service';
+import {LogoutComponent} from './logout/logout.component';
 // noinspection TypeScriptValidateTypes
 
 // export function loadChildren(path) { return System.import(path); };
@@ -10,6 +11,10 @@ export const routes: Routes = [
   {
     path: 'login',
     loadChildren: 'app/pages/login/login.module#LoginModule',
+  },
+  {
+    path: 'logout',
+    loadChildren: 'app/pages/logout/logout.module#LogoutModule',
   },
   {
     path: 'register',
